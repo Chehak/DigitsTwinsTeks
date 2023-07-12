@@ -672,6 +672,12 @@ section {
   color: #012970;
 }
 
+.heading-2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #012970;
+}
+
 .about p {
   margin: 15px 0 30px 0;
   line-height: 24px;
@@ -2582,4 +2588,8 @@ section {
 
 .animation ::after {
   content: "sjhsjhdjshsss";
+}
+
+.even {
+  background: #0c050005;
 }
