@@ -430,33 +430,33 @@ Quality is our priority. We follow best practices, ensuring robust, scalable, an
           </div>
 
           <div class="col-lg-6">
-            <form method="post" class="php-email-form">
+            <form method="post" class="php-email-form" onsubmit="sendEmail(event)">
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Name" required>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Name" required>
                 </div>
                 <div class="col-md-6">
-                  <input type="text" name="surname" class="form-control" placeholder="Surname">
+                  <input type="text" name="surname" id="surname" class="form-control" placeholder="Surname">
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control"  id="form-email" name="email" placeholder="Email" required>
+                  <input type="email" class="form-control"  id="email" name="email" placeholder="Email" required>
                 </div>
 
                 <div class="col-md-6">
-                  <input type="text" name="country" class="form-control" placeholder="Country" required>
+                  <input type="text" name="country" id="country" class="form-control" placeholder="Country" required>
                 </div>
                 <div class="col-md-6">
-                  <input type="text" name="mobile" class="form-control" placeholder="Mobile" required>
+                  <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile" required>
                 </div>
 
                 <div class="col-md-6">
-                  <input type="text" name="subject" class="form-control"  placeholder="Subject" required>
+                  <input type="text" name="subject"  id="subject" class="form-control"  placeholder="Subject" required>
                 </div>
 
                 <div class="col-md-12">
-                  <textarea name="message" class="form-control"  rows="6" placeholder="Message" required></textarea>
+                  <textarea name="message" class="form-control" id="message"  rows="6" placeholder="Message" required></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
@@ -464,7 +464,7 @@ Quality is our priority. We follow best practices, ensuring robust, scalable, an
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                  <button type="submit" onclick="sendEmail()">Send Message</button>
+                  <button type="submit">Send Message</button>
                 </div>
 
               </div>
@@ -490,7 +490,7 @@ Quality is our priority. We follow best practices, ensuring robust, scalable, an
               <img src="assets/img/home/logo.jpeg" alt="">
               <span class="responsive">A Digits Twins Teks</span>
             </a>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat minus delectus temporibus molestias sint odio, repudiandae totam ducimus velit labore in, dolore eum corporis similique laboriosam porro cumque perferendis? Dolores!</p>
+            <p>Stay connected with us on our social media channels to keep up with the latest industry trends, product releases, and exciting company updates. Follow us to join our thriving community of satisfied clients and tech enthusiasts.</p>
             <div class="social-links mt-3">
               <!-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
               <a href="#" class="facebook"><i class="bi bi-facebook"></i></a> -->
@@ -555,27 +555,50 @@ Quality is our priority. We follow best practices, ensuring robust, scalable, an
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
    <script type="text/javascript">
-    function sendEmail() {
-      Email.send({
-        Host: "smtp.gmail.com",
-        Username: "gchehak18@gmail.com",
-        Password: "Chehak@1718",
-        To: 'gchehak18@gmail.com',
-        From: document.getElementById('form-email').value,
-        Subject: "Sending Email using javascript",
-        Body: "Well that was easy!!",
-      })
-        .then(function (message) {
-          alert("mail sent successfully")
-        });
-    }
-  </script>
+   function sendEmail(event) {
+    emailjs.init('i9gxQJRUfd_Ycw5pF');
+
+  event.preventDefault();
+
+  const to = document.getElementById('email').value;
+  const subject = document.getElementById('subject').value;
+  const body = document.getElementById('message').value;
+  const name = document.getElementById('name').value;
+  const surname = document.getElementById('surname').value;
+  const country = document.getElementById('country').value;
+  const mobile = document.getElementById('mobile').value;
+ console.log(to,subject,body,name,surname,country,mobile);
+//  return;
+  const emailParams = {
+    to_email: to,
+    subject: subject,
+    body: body,
+    from_name:name+" "+surname,
+    message: body,
+    contact: mobile,
+    subject:subject,
+    country:country,
+    to_name: "Admin"
+    };
+
+  emailjs.send('service_avuqu2q', 'template_uscxdkf', emailParams)
+    .then((response) => {
+
+      console.log('Email sent successfully!', response);
+    })
+    .catch((error) => {
+      console.log('Error occurred while sending email:', error);
+    });
+}
+
+   
+   </script>
 
 </body>
 
